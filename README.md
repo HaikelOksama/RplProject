@@ -2,7 +2,7 @@
 
 ## Project Manajemen Organisasi Uin Suska
 
-- for Software Engineering finals
+**for Software Engineering finals**
 - Group 4:
 > Haikel,
 > Anisa,
@@ -11,4 +11,4 @@
 > Riyendra,
 
 **Information System
-4G
+4G**
