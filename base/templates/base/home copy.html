@@ -1,0 +1,144 @@
+{% extends 'base.html' %}
+
+{% block title %}Home{% endblock title %}
+
+{% block content %}
+
+<!-- end of top -->
+
+<!-- main content start -->
+<div class="content">
+  <div class="left-side">
+    <div class="content-header">
+      <h3>Event terbaru</h3>
+      <a href=""><p>selengkapnya</p></a>
+    </div>
+    <div class="event-container">
+      {% for event in eventList %}
+      {% if event.active %}
+      <a href="{% url 'event' event.id %}">
+        <div class="event-card">
+          <div class="card-profile">
+            {% if event.organisasi.profile_picture %}
+            <img
+              src="{{event.organisasi.profile_picture.url}}"
+              alt=""
+              srcset=""
+            />
+            {% else %}
+            <img
+              src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQp9XXU7SVb7ZkED-wSC9xKUgvs7qD8ypvLxpjllkTcd_pv_ne1jpQrbvCme2MEXMMIMBM&usqp=CAU"
+              alt=""
+              srcset=""
+            />
+            {% endif %}
+          </div>
+          
+          <div class="card-name">
+            <p>{{event.organisasi}}</p>
+            <small>{{event.name}}</small>
+            <small>{{event.jadwal|timeuntil}}</small>
+          </div>
+        </div>
+      </a>
+      {% endif %}
+      {% endfor %}
+
+    </div>
+
+    <br>
+    {% if rekomendasi %}
+      <div class="content-header">
+        <h3>Organisasi direkomendasikan</h3>
+        <a href=""><p>selengkapnya</p></a>
+      </div>
+      <div class="event-container">
+        
+        {% for org in rekomendasi %}
+        <a href="{% url 'detail' org.name %}">
+          <div class="event-card">
+            <div class="card-profile">
+              {% if org.profile_picture %}
+              <img
+                src="{{org.profile_picture.url}}"
+                alt=""
+                srcset=""
+              />
+              {% else %}
+              <img
+                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQp9XXU7SVb7ZkED-wSC9xKUgvs7qD8ypvLxpjllkTcd_pv_ne1jpQrbvCme2MEXMMIMBM&usqp=CAU"
+                alt=""
+                srcset=""
+              />
+              {% endif %}
+            </div>
+            
+            <div class="card-name">
+              <p>{{org.name}}</p>
+              <small>{{org.topic}}</small>
+            </div>
+          </div>
+        </a>
+        {% endfor %}
+    
+    </div>
+    {% endif %}
+  </div>
+
+  
+  <div class="right-side">
+    <div class="main-content-header">
+        <h2>Selamat Datang di Sistem manajemen Organisasi</h2>
+    </div>
+    <div class="home-main">
+      <div class="quick-action">
+        <h3>Aksi Cepat</h3>
+        <div class="home-action-wrapper">
+          <button class="button-43" role="button">Edit info Organisasi</button>
+          <button class="button-43" role="button">Tambah event baru</button>
+          <button class="button-43" role="button">Lihat profil Organisasi</button>
+        </div>
+      </div>
+      <br>
+      <div class="org-feed">
+        {% for feed in feeds %}
+        <div class="feed-card">
+          <div class="feed-head">
+            <div class="feed-prof">
+              {% if feed.organisasi.profile_picture %}
+              <div class="feed-org-img">
+                <img src="{{feed.organisasi.profile_picture.url}}">    
+              </div>
+              {% endif %}
+              <p>{{feed.organisasi}} Memposting <strong>"{{feed.title}}"</strong></p>
+            </div>
+            <div>
+              <p>{{feed.created|timesince}}</p>
+            </div>
+          </div>
+          <div class="feed-body">
+            <p>{{feed.body}}</p>
+            {% if feed.banner %}
+            <div class="banner-wrapper">
+              <img src="{{feed.banner.url}}" alt="">
+            
+            </div>
+            {% endif %}
+          </div>
+          {% if request.user == feed.organisasi.host %}
+          <div>
+            <a href="{% url 'delete_feed' feed.id %}"><p style="color: red;">Hapus</p></a>
+          </div>
+          
+          {% endif %}
+        </div>
+        <br>
+        {% endfor %}
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+{% endblock content %}

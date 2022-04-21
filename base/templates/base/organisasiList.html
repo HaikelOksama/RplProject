@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Organisasi
+{% endblock title %}
+
+{% block content %}
+<div class="list-wrapper">
+
+    <div class="list-container">
+        <h2>Organisasi</h2>
+        {% for org in organisasi %}
+
+        <a href="{% url 'detail' org.name %}">
+        <div class="org-card">
+            <div class="org-card-profile">
+                <h3>{{org.name}}</h3>
+                <small>{{org.topic}}</small>
+            </div>
+            <div class="org-image">
+                {% if org.profile_picture %}
+                <img src="{{org.profile_picture.url}}" alt="" srcset="">
+                {% else %}
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQp9XXU7SVb7ZkED-wSC9xKUgvs7qD8ypvLxpjllkTcd_pv_ne1jpQrbvCme2MEXMMIMBM&usqp=CAU" alt="">
+                {% endif %}
+            </div>
+        </div>    
+        </a>
+        {% endfor %}
+    </div> 
+
+    <div class="topic-list">
+        <h2>Filter berdasar Topik</h2>
+        <a href="{% url 'organisasi' %}"><small>tampilkan semua</small></a>
+        <div class="topic-wrapper">  
+            {% for topic in topics %}
+            <div class="topic-container">
+                <a href="{% url 'organisasi' %}?q={{topic.name}}"><p>{{topic.name}}</p></a>
+            </div>
+            {% endfor %}
+        </div>
+        
+    </div>
+
+</div>
+{% endblock content %}

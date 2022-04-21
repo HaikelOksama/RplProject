@@ -1,0 +1,129 @@
+{% extends 'base.html' %}
+
+{% block title %}Event {{event.name|capfirst}}{% endblock title %}
+
+{% block content %}
+
+<div class="event-detail-container">
+    <div class="event-wrapper">
+        <div class="event-banner-container">
+            {% if event.banner %}
+            <img src="{{event.banner.url}}" alt="" srcset="">
+            {% else %}
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/No_image_available.svg/1024px-No_image_available.svg.png" alt="">
+            {% endif %}
+        </div>
+        <div class="main-event">
+            <h2>Event Detail</h2>
+            <div class="event-information">   
+                <div class="event-head">
+                    <h2>{{event.name|capfirst}}</h2>
+                    {% if request.user == event.organisasi.host %}
+                    <div class="event-action">
+                        <a href="{% url 'eventEdit' event.id %}" class="action edit"><i class="fa-regular fa-pen-to-square"></i> Edit Event</a>
+                        <a href="" class="action delete"><i class="fa-regular fa-trash-can" style="color: black;"></i> Hapus</a>
+                    </div>
+                    {% endif %}
+                </div>    
+                
+                <br>
+                <div class="info-list">
+                    <ul>            
+                        <li><i style="color: #4CAF50;"  class="fa-regular fa-circle-question"></i> Keterangan :<p>{{event.desciption}}</p></li>
+                        <li><i style="color: #1D95C9;" class="fa-regular fa-calendar"></i> Jadwal : <p>{{event.jadwal}}</p></li>
+                        <li><i style="color: red;" class="fa-solid fa-location-dot"></i> Lokasi : <p>{{event.lokasi}}</p></li>
+                    </ul>       
+                </div>
+            </div>  
+        </div>     
+    </div>
+
+    <div class="below-part">
+
+        <div class="comment-wrapper">
+            <h2><i style="color: #17759C;" class="fa-regular fa-comments"></i> Komentar</h2>
+            {% if comments %}   
+                {% for comment in comments %}
+                <div class="comment-body">
+                    <div class="comment-header">
+                        <div class="comment-profile">
+                            <div class="comment-avatar-container ">
+                            {% if comment.user.avatar %}
+                            <img src="{{comment.user.avatar.url}}" alt="">
+                            {% else %}
+                            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQW6wRWOjhYe9HP1hvqWiY_x4tDvhbtNcvKUw&usqp=CAU" alt="">
+                            {% endif %}
+                            </div>
+                            <a href="{% url 'profile' comment.user %}"><p>@{{comment.user}} </p></a>
+                        </div>    
+                        <span>{{comment.created|timesince}} ago</span>
+                    </div>
+                    <p>{{comment.body}}</p>
+                </div>
+                {% endfor %}
+                {% else %}
+                <div class="comment-body">
+                    <h2>Belum ada komentar pada event ini,,</h2>
+                </div>
+                {% endif %} 
+            {% if request.user.is_authenticated %}
+            <div class="comment-form">
+                <form action="" method="POST">
+                    {% csrf_token %}
+                    {% comment %} <input type="text" name="body" placeholder="Berikan Komentar anda.." id=""> {% endcomment %}
+                    <div class="comment-wrap">
+                    <textarea name="body" id="" cols="20" rows="5" placeholder="Berikan Komentar anda..."></textarea>
+                    <input type="submit" value="Komentari">
+                    </div>
+                </form>
+            </div>
+            {% else %}
+            <div class="comment-form">
+                <div class="comment-wrap">
+                    <textarea name="body" id="" disabled cols="20" rows="5" placeholder="Berikan Komentar anda..."></textarea>
+                </div>
+            </div>
+            {% endif %}
+        </div> 
+        
+        <div class="left-side">
+            <div class="content-header">
+                <h3>Event terbaru</h3>
+                <a href=""><p>selengkapnya</p></a>
+              </div>
+              <div class="event-container">
+                {% for event in eventList %}
+                <a href="{% url 'event' event.id %}">
+                  <div class="event-card">
+                    <div class="card-profile">
+                      {% if event.organisasi.profile_picture %}
+                      <img
+                        src="{{event.organisasi.profile_picture.url}}"
+                        alt=""
+                        srcset=""
+                      />
+                      {% else %}
+                      <img
+                        src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQp9XXU7SVb7ZkED-wSC9xKUgvs7qD8ypvLxpjllkTcd_pv_ne1jpQrbvCme2MEXMMIMBM&usqp=CAU"
+                        alt=""
+                        srcset=""
+                      />
+                      {% endif %}
+                    </div>
+                    
+                    <div class="card-name">
+                      <p>{{event.organisasi}}</p>
+                      <small>{{event.name}}</small>
+                      <small>{{event.jadwal|timeuntil}}</small>
+                    </div>
+                  </div>
+                </a>
+                {% endfor %}    
+              </div>
+        </div>
+    </div>
+    
+    
+</div>
+
+{% endblock content %}

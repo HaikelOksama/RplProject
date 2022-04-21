@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% block title %}New Event{% endblock title %}
+{% load crispy_forms_tags %}
+{% block content %}
+
+<div class = "new-event-container">
+    <h2>Event Baru</h2>
+    <form action="" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="event-form-wrapper">
+        {% for field in forms %}
+            <div class="event-form">
+                <label for="{{field.name}}">{{field.name|capfirst}}</label>
+                {{field}}
+            </div>
+        {% endfor %}
+        <br>
+        <input type="submit" value="Submit">
+        </div>
+        
+        {% comment %} <div>
+            <p>name</p>
+            {{forms.name}}
+        </div>
+        <div>
+            <p>Desc</p>
+            {{forms.description}}
+        </div>
+        <div>
+            <p>Desc</p>
+            {{forms.description}}
+        </div> {% endcomment %}           
+    </form>
+</div>
+
+
+
+{% endblock content %}

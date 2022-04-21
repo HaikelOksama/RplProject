@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% block title %}Login{% endblock title %}
+
+{% block content %}
+<div class="login-wrapper">
+  <div class="login-container">
+    <div class="login-logo"><h2>Daftar</h2></div>
+    <div class="login-item">
+      <form action="" method="post" class="form form-login">
+        {% csrf_token %}
+        <p>Username</p>
+        <div class="form-field">
+          <label class="user" for="login-username"></label>
+          {{form.username}}
+        </div>
+
+        <p>Password</p>
+        <div class="form-field">
+          <label class="lock" for="login-password"
+            ></label
+          >
+          {{form.password1}}
+        </div>
+
+        <p>Masukkan Password Kembali</p>
+        <div class="form-field">
+          <label class="lock" for="login-password"></label
+          >
+          {{form.password2}}
+        </div>
+
+        <div class="form-field login-submit">
+          <input type="submit" value="Daftar" />
+        </div>
+      </form>
+      
+      {% if messages %}
+        <span class="messages">
+            {% for message in messages %}
+            <p>{{message}}</p>
+            {% endfor %}
+        </span>
+    {% endif %}
+
+    </div>
+    <div class="login-register">
+      <p>Sudah punya akun?</p>
+      <a href="{% url 'login' %}">Login</a>
+    </div>
+  </div>
+</div>
+{% endblock content %}

@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block title %}Edit {{org.name}}{% endblock title %}
+
+{% block content %}
+{% load crispy_forms_tags %}
+<!-- CSS only -->
+
+
+
+    <div class = "new-event-container">
+        <h2>Ubah Organisasi {{org.name}}</h2>
+        <form action="" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="event-form-wrapper">
+            <div class="event-form">
+            {{form|crispy}}
+            </div>
+            <input type="submit" value="Submit">
+  
+            </div>        
+        </form>
+    </div>
+
+    
+{% endblock content %}

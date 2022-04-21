@@ -1,0 +1,108 @@
+{% extends 'base.html' %}
+
+{% block title %}Home{% endblock title %}
+
+{% block content %}
+<div class="top">
+  <div class="card">
+    <div class="card-heading">
+      <h3>Organisasi-ku</h3>
+      <a href=""><small> lihat semua </small></a>
+    </div>
+    <a href="">
+      <div class="card-content">
+        <h4>GDSC</h4>
+        <div class="card-body">
+          <p>
+            Lorem Ipsum is simply dummy text of the printing and
+            typesetting industry
+          </p>
+          <img
+            src="https://martech.org/wp-content/uploads/2015/01/building-blocks-wall-ss-1920.jpg"
+            alt=""
+            srcset=""
+          />
+        </div>
+      </div>
+    </a>
+  </div>
+  <div class="card">
+    <div class="card-heading">
+      <h3>Rekomendasi</h3>
+      <a href=""><small> lihat semua </small></a>
+    </div>
+    <a href="">
+      <div class="card-content">
+        <h4>GDSC</h4>
+        <div class="card-body">
+          <p>
+            Lorem Ipsum is simply dummy text of the printing and
+            typesetting industry
+          </p>
+          <img
+            src="https://martech.org/wp-content/uploads/2015/01/building-blocks-wall-ss-1920.jpg"
+            alt=""
+            srcset=""
+          />
+        </div>
+      </div>
+    </a>
+  </div>
+</div>
+<!-- end of top -->
+
+<!-- main content start -->
+<div class="content">
+  <div class="left-side">
+    <div class="content-header">
+      <h3>Event terbaru</h3>
+      <a href=""><small>selengkapnya</small></a>
+    </div>
+    <div class="event-container">
+      {% for event in eventList %}
+      {% if event.active %}
+      <a href="{% url 'event' event.id %}">
+        <div class="event-card">
+          <div class="card-profile">
+            {% if event.organisasi.profile_picture %}
+            <img
+              src="{{event.organisasi.profile_picture.url}}"
+              alt=""
+              srcset=""
+            />
+            {% endif %}
+          </div>
+          
+          <div class="card-name">
+            <p>{{event.organisasi}}</p>
+            <small>{{event.name}}</small>
+            <small>{{event.jadwal}}</small>
+          </div>
+        </div>
+      </a>
+      {% endif %}
+      {% endfor %}
+
+    </div>
+  </div>
+
+  
+  <div class="right-side">
+    <div class="content-header">
+        <h3>Bidang organisasi</h3>
+        <small>selengkapnya</small>
+    </div>
+    <div class="product-container">
+        {% for topic in topics %}
+        <div class="product">
+          <h3>{{topic.name}}</h3>
+        </div>
+        {% endfor %}
+  
+    </div>
+
+  </div>
+</div>
+
+
+{% endblock content %}

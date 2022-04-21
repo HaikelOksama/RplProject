@@ -1,0 +1,69 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %} {% endblock title %} 
+
+{% block content %}
+
+<div class="organisasi-wrapper">
+
+    <div class="organisasi-profile">
+        
+        <div class="organisasi-head">
+            {% if organisasi.profile_picture %}
+            <div class="org-picture">
+                <img src="{{organisasi.profile_picture.url}}" alt="" srcset="">
+            </div>
+            {% endif %}
+
+            {% if request.user == organisasi.host %}
+            <div class="org-action">
+                <h3 class=''>Aksi untuk anda</h3>
+                <div class="action-wrapper">
+                    <a href="{% url 'create-feed' organisasi.name %}"><button class="button-43" role="button">Tambah Feed</button></a>
+                    <a href="{% url 'create-event' organisasi.name %}"><button class="button-43" role="button">Tambah Event</button></a>
+                    <a href="{% url 'update' organisasi.id %}"><button class="button-43" role="button">Update Organisasi</button></a>
+                </div>        
+            </div>
+            {% endif %}
+        </div>
+
+        
+        <center><h2>{{organisasi.name}}</h2></center>
+        <p>{{organisasi.description}}</p>
+        <div class="kegiatan-img">
+            <p>Galeri Kegiatan</p>
+            <div class="activityimg">
+                {% if organisasi.showcase1 %}
+                <img src="{{organisasi.showcase1.url}}" alt="" srcset="">
+                {% endif %}
+                {% if organisasi.showcase2 %}
+                <img src="{{organisasi.showcase2.url}}" alt="" srcset="">
+                {% endif %}
+                {% if organisasi.showcase3 %}
+                <img src="{{organisasi.showcase3.url}}" alt="" srcset="">
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+    <div class="kegiatan">
+        <h2>Kegiatan</h2>
+        {% for event in events %}
+        <a href="{% url 'event' event.id %}">
+        <div class="kegiatan-list">
+            
+                <div class="event-info">
+                    <h3>{{event.name}}</h3>
+                    <p>Lokasi : {{event.lokasi}}</p>
+                    <p>Jadwal : {{event.jadwal}}</p>
+                </div>
+            
+            <hr>
+        </div>
+    </a>
+        {% endfor %}
+    </div>
+
+</div>
+
+{% endblock content %}

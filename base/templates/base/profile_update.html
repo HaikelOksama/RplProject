@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+{% block title %}Edit Profile{% endblock title %}
+{% load crispy_forms_tags %}
+{% block content %}
+
+<div class = "new-event-container">
+    <h2>Edit Profil</h2>
+    <form action="" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="event-form-wrapper">
+            <div class="event-form">
+                <label for="{{forms.bio.label}}">Bio : </label>
+                {{forms.bio}}
+            </div> 
+            <br>
+            <div class="event-form">
+                <div class="interest">
+                <label for="{{forms.interest.label}}">Pilih {{forms.interest.label}} anda</label>
+                {{forms.interest}}
+                </div>
+            </div>
+            <br>
+            <div class="event-form">
+                <label for="{{forms.avatar.label}}">Avatar : </label>
+                {{forms.avatar}}
+            </div>   
+            <br>
+            {% comment %} {% for field in forms %}
+            <div class="event-form">
+                {{ field|as_crispy_field:"bootstrap5" }}
+            </div> 
+            <br>
+            {% endfor %} {% endcomment %}
+
+            {% comment %} <div class="event-form">
+                <label for="{{forms.username.label}}">Username</label>
+                {{forms.username}}
+            </div>
+            <div class="event-form">
+                <label for="{{forms.email.label}}">Email</label>
+                {{forms.email}}
+            </div> {% endcomment %}
+        <input type="submit" value="Submit">
+
+        </div>        
+    </form>
+</div>
+
+{% endblock content %}

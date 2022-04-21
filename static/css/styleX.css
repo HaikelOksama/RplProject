@@ -1,0 +1,276 @@
+@import url('https://netdna.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.css');
+@import url(https://fonts.googleapis.com/css?family=Lato:400,300,700);
+
+
+.login-container {
+  background-color: rgb(255, 255, 255);
+  border-radius: 12px;
+  box-shadow: 0 1.5px 0 0 rgba(0,0,0,0.1);
+  width:450px;
+  display: flex;  
+  flex-direction: column;
+  color: black;
+}
+
+.messages {
+  color: red;
+}
+
+.login-logo{
+  color: white;
+    height: 80px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  font-size:20px;
+  text-align: center;
+  margin:0;
+  background-color: #2980B9;
+}
+
+.login-item {
+	color: black;
+	padding:25px 25px 0;
+	margin: 20px 20px 0;	
+	border-radius: 3px;
+
+}
+
+input {
+  border: 0;
+  color: inherit;
+  font: inherit;
+  margin: 0;
+  outline: 0;
+  padding: 0;
+  -webkit-transition: background-color .3s;
+  transition: background-color .3s;
+}
+
+.user:before {
+  content: '\f007';
+  font: 14px fontawesome;
+	color: #ffffff;
+}
+
+.lock:before {
+  content: '\f023';
+  font: 14px fontawesome;
+	color: #ffffff;
+}
+
+.form input[type="password"], .form input[type="text"], .form input[type="submit"] {
+  width: 100%;
+}
+
+.form-login label,
+.form-login input[type="text"],
+.form-login input[type="password"],
+.form-login input[type="submit"] {
+  border-radius: 0.25rem;
+  padding: 1rem;
+  color: black;  
+}
+
+.form-login label {
+  background-color: #222222;
+  border-bottom-right-radius: 0;
+  border-top-right-radius: 0;
+  padding-left: 1.25rem;
+  padding-right: 1.25rem;
+}
+
+.form-login input[type="text"], .form-login input[type="password"] {
+  background-color: #9dbdd361;
+  border-bottom-left-radius: 0;
+  border-top-left-radius: 0;
+}
+.form-login input[type="text"]:focus, .form-login input[type="text"]:hover, .form-login input[type="password"]:focus, .form-login input[type="password"]:hover {
+  background-color: #abcde2;
+}
+.form-login input[type="submit"] {
+  background-color: #2980B9;
+  color: #eee;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+.form-login input[type="submit"]:focus, .form-login input[type="submit"]:hover {
+  background-color: #3498DB;
+}
+.form-field {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  margin-bottom: 2rem;
+  cursor: pointer;
+}
+
+
+.hidden {
+  border: 0;
+  clip: rect(0 0 0 0);
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  width: 1px;
+}
+
+.text--center {
+  text-align: center;
+}
+
+.login-submit:hover{
+    cursor: pointer;
+}
+
+/* Login View */
+.login-wrapper{
+  border-radius: 14px;
+  color: black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  margin-top: 20px;
+}
+
+
+
+.login-head{
+  display: flex;
+  background-color: var(--color-secondary);
+  width: 100%;
+  
+  justify-content: center;
+}
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: flex-start;
+}   
+
+
+.login-body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  padding: 14px;
+
+}
+
+.form-group {
+  margin-bottom: 20px;
+  width: 100%;
+}
+
+.login-register {
+  color: black;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+  padding: 10px;
+  padding-bottom: 30px;
+}
+
+.login-register p {
+  margin-top: 0;
+  margin-bottom: 10px;
+}
+
+.login-register a {
+  font-weight: bold;
+  color: #2980B9;
+}
+
+/* end of login form */
+
+/* Dropdown Button */
+.dropbtn {
+  background-color: #3498DB;
+  color: white;
+  padding: 16px;
+  font-size: 16px;
+  border: none;
+  cursor: pointer;
+}
+
+/* Dropdown button on hover & focus */
+.dropbtn:hover, .dropbtn:focus {
+  background-color: #2980B9;
+}
+
+/* The container <div> - needed to position the dropdown content */
+.dropdown {
+  position: relative;
+  display: flex;
+  width: 10%;
+}
+
+/* Dropdown Content (Hidden by Default) */
+.dropdown-content {
+  top: 50px;
+  display: none;
+  position: absolute;
+  background-color: #f1f1f1;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+/* Links inside the dropdown */
+.dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+/* Change color of dropdown links on hover */
+.dropdown-content a:hover {background-color: #ddd}
+
+/* Show the dropdown menu (use JS to add this class to the .dropdown-content container when the user clicks on the dropdown button) */
+.show {display:block;}
+
+.action {
+	border-radius:19px;
+	display:inline-block;
+	cursor:pointer;
+	color:#ffffff;
+	font-family:Arial;
+	font-size:17px;
+	padding:12px 31px;
+	text-decoration:none;
+  text-align:center;
+}
+
+.edit {
+  background-color:#44c767;
+}
+
+.edit:hover {
+	background-color:#5cbf2a;
+}
+.edit:active {
+	position:relative;
+	top:1px;
+}
+
+.delete {
+  background-color:#c74f44;
+}
+
+.delete:hover {
+	background-color:#bf2a2a;
+}
+.delete:active {
+	position:relative;
+	top:1px;
+}

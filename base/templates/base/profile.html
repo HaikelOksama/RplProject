@@ -1,0 +1,103 @@
+{% extends 'base.html' %}
+
+{% block title %}Profile | {{user.username}} {% endblock title %}
+
+
+
+{% block content %}
+{% comment %} <style>
+    .profile-wrapper {
+        display:grid;
+        grid-template-columns: 800px 200px;
+    }
+</style> {% endcomment %}
+
+
+<div class="profile-wrapper">
+    <div class="main-profile">
+        <div class="avatar-container">
+            {% if profile.avatar %}
+            <img src="{{profile.avatar.url}}" alt="">
+            {% else %}
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQW6wRWOjhYe9HP1hvqWiY_x4tDvhbtNcvKUw&usqp=CAU" alt="">
+            {% endif %}
+        </div>
+        <div class="profile-container">
+            <div class="header">
+                <h2>Profil Anda</h2>
+                <a href="{% url 'profile_update' request.user.id %}">Edit Profil</a>
+            </div>
+            
+            <div class="user-profile">
+                <ul>
+                    <li>Username : {{profile.user}}</li>
+                    <li>Bio : {{profile.bio}} </li>
+                    <li>Interest : 
+                        {% for topic in interest %}
+                        {{topic.name}},
+                        {% endfor %}
+                    </li>
+                
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="myactivity-wrapper">
+        <div class='my-org'>
+            <h2>Organisasi anda</h2>
+            <hr>
+            {% for org in organisasi %}
+            <a href="{% url 'detail' org.name %}">
+                <div class="org-card">
+                    <div class="org-card-profile">
+                        <h3>{{org.name}}</h3>
+                        <small>{{org.topic}}</small>
+                    </div>
+                    <div class="org-image">
+                        {% if org.profile_picture %}
+                        <img src="{{org.profile_picture.url}}" alt="" srcset="">
+                        {% else %}
+                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQp9XXU7SVb7ZkED-wSC9xKUgvs7qD8ypvLxpjllkTcd_pv_ne1jpQrbvCme2MEXMMIMBM&usqp=CAU" alt="">
+                        {% endif %}
+                    </div>
+                </div>    
+                </a>
+            {% endfor %}
+        </div>
+        <div class="my-activity">
+            <h2>Aktivitas anda</h2>
+            <hr>
+            <div class="activity-body">
+                {% for comment in comment %}
+                    <div class="my-comment">
+                        <h3>Anda memberi komentar pada event {{comment.event}}</h3>
+                        <p>{{comment.body}}</p>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+
+{% comment %} <div class="profile-wrapper">
+    <div>
+        <h2>hello {{user.username}}</h2>
+        <a href="{% url 'profile_update' request.user.id %}">Edit Profil</a>
+    </div>
+
+    <div>
+        <h2>organisasi anda</h2>
+        {% for org in organisasi %}
+        <div>
+            <a href="{% url 'detail' org.name %}"><p>{{org.name}}</p></a>
+        </div>
+        <hr>
+        {% endfor %}
+    </div>
+</div> {% endcomment %}
+
+
+{% endblock content %}

@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+
+{% block title %}Login{% endblock title %}
+
+{% block content %}
+<div class="login-wrapper">
+  <div class="login-container">
+    <div class="login-logo">Login</div>
+    <div class="login-item">
+      <form action="" method="post" class="form form-login">
+        {% csrf_token %}
+        <div class="form-field">
+          <label class="user" for="login-username"
+            ><span class="hidden">Username</span></label
+          >
+          <input
+            id="login-username"
+            name = "username"
+            type="text"
+            class="form-input"
+            placeholder="Username"
+            required
+          />
+        </div>
+
+        <div class="form-field">
+          <label class="lock" for="login-password"
+            ><span class="hidden">Password</span></label
+          >
+          <input
+            id="login-password"
+            type="password"
+            name='password'
+            class="form-input"
+            placeholder="Password"
+            required
+          />
+        </div>
+
+        <div class="form-field login-submit">
+          <input type="submit" value="Log in" />
+        </div>
+      </form>
+      {% if messages %}
+        <span class="messages">
+            {% for message in messages %}
+            <p>{{message}}</p>
+            {% endfor %}
+        </span>
+      {% endif %}
+    </div>
+    <div class="login-register">
+      <p>Belum punya akun?</p>
+      <a href="{% url 'register' %}">Daftar</a>
+    </div>
+  </div>
+</div>
+{% endblock content %}
