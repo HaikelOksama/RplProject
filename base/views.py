@@ -11,7 +11,7 @@ from django.contrib.auth.forms import UserCreationForm, PasswordChangeForm
 from django.db.models import Q #filter query chaining
 
 from django.contrib.auth.models import User
-from .models import Organisasi, Topic, Event,Comment, Feed , UserProfile
+from .models import Fakultas, Organisasi, Topic, Event,Comment, Feed , UserProfile
 
 from .forms import OrganisasiForm, EventForm, FeedForm, ProfileForm
 
@@ -76,6 +76,7 @@ def updateProfile(request, username):
     
     context = {
         'forms' : form,
+        'profile' : user,
     }
     return render(request , 'base/profile_update.html', context)
 
@@ -187,16 +188,17 @@ def home(request):
 def organisasiList(request):
     #organisasi = Organisasi.objects.all()
     topics = Topic.objects.all()
-
+    fakultas = Fakultas.objects.all()
     q = request.GET.get('q') if request.GET.get('q') != None else '' 
     organisasi = Organisasi.objects.filter(
         Q(topic__name__icontains = q )| # | = or statement 
-        Q(name__icontains = q )
+        Q(name__icontains = q )|
+        Q(fakultas__name__icontains = q )
         )
-
     context = {
         'organisasi' : organisasi,
         'topics': topics,
+        'fakultas': fakultas,
     }
     return render(request, 'base/organisasiList.html', context)
 
@@ -206,6 +208,7 @@ def organisasiDetail(request, name):
     context = {
         'organisasi' : organisasi,
         'events' : events,
+        
     }
     return render(request, 'base/organisasiDetail.html', context)
 

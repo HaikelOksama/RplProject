@@ -59,6 +59,20 @@ a, a:visited, a:hover, a:active {
     padding: 5px;;
 }
 
+.logo {
+    display: flex;
+    width: 20%;
+    max-height: 75px;
+    justify-content: center;
+    align-items: center;
+    border: 4px rgb(0, 0, 0) solid;
+}
+
+.logo img{
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+}
 
 .search{
     width: 33%;
@@ -430,9 +444,16 @@ main {
     flex-direction: column;
     justify-content: flex-start;
     background-color: white;
-    width: 70%;
+    flex-grow: 3;
+    min-width: 70%;
     padding: 10px;
     min-height: 500px;
+}
+
+.filter-section {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
 }
 
 .org-card{
@@ -455,18 +476,12 @@ main {
 }
 
 .org-image{
-    width: 30%;
+    display: flex;
+    align-items: center;
+    width: 20%;
+    margin: 10px;
 }
 
-
-.org-image img{
-    border-radius: 50%;
-    object-fit: cover;
-    width: 30%;
-    height: auto;
-    max-height: 100px;
-
-}
 
 .topic-list {
     border-radius: 14px;
@@ -474,8 +489,9 @@ main {
     flex-direction: column;
     align-items: center;
     background-color: white;
-    width: 30%;
+    width: 100%;
     margin-left: 10px;
+    margin-bottom: 10px;
     padding: 10px;
     height: fit-content;
 }
@@ -522,6 +538,10 @@ main {
     width: 70%;
     min-height: 400px;
     height: fit-content;
+}
+
+.organisasi-profile h3 {
+    line-height: 1px;
 }
 
 .organisasi-head {
@@ -599,7 +619,9 @@ main {
 
 .org-picture img{
     width: 12vw;
+    min-width: 300px;
     height: 12vw;
+    min-height: 300px;
     border-radius: 50%;
     object-fit: cover;
 }
@@ -854,14 +876,16 @@ textarea:focus {
 }
 
 .my-org .org-image{
-    width: 40%;
+    width: auto;
+    
 }
 
 .org-image img {
-    width: 5vw;
-    height: 5vw;
+    padding: 5px;
     border-radius: 50%;
-    object-fit: contain;
+    width: 7vw;
+    height: 7vw;
+    object-fit: cover;
 }
 
 
@@ -901,8 +925,9 @@ textarea:focus {
     flex-grow: 2;
     border-radius: 14px;
     border: 3px solid rgba(0, 0, 0, 0.337);
-    height: auto;
+    height: 500px;
     width: 12rem;
+    min-width: 300px;
 }
 
 .event-banner-container img{

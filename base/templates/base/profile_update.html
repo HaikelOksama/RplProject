@@ -11,7 +11,11 @@
             <div class="event-form">
                 <label for="{{forms.bio.label}}">Bio : </label>
                 {{forms.bio}}
-            </div> 
+            </div>
+            <div class="event-form">
+                <label for="{{forms.fakultas.label}}">Fakultas : </label>
+                {{forms.fakultas}}
+            </div>  
             <br>
             <div class="event-form">
                 <div class="interest">
@@ -21,8 +25,13 @@
             </div>
             <br>
             <div class="event-form">
-                <label for="{{forms.avatar.label}}">Avatar : </label>
-                {{forms.avatar}}
+                {% if forms.avatar.field.widget.input_type == 'file' %}
+                    <label for="{{forms.avatar.label}}">Avatar : </label>
+                    <input type="file" name="{{ forms.avatar.name }}" onchange="readURL(this);"/>
+                    <img id="blah" src="{{ profile.avatar.url }}" alt="your image" style="width: 12em; height: 12em;" />
+                {% endif %} 
+                {% comment %} <label for="{{forms.avatar.label}}">Avatar : </label>
+                {{forms.avatar}} {% endcomment %}
             </div>   
             <br>
             {% comment %} {% for field in forms %}
@@ -45,5 +54,7 @@
         </div>        
     </form>
 </div>
+
+
 
 {% endblock content %}

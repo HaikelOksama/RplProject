@@ -15,9 +15,13 @@
         </div>
         <div class="main-event">
             <h2>Event Detail</h2>
+            
             <div class="event-information">   
                 <div class="event-head">
                     <h2>{{event.name|capfirst}}</h2>
+                    <div class="penyelenggara"  style="color: white;">
+                        
+                    </div>
                     {% if request.user == event.organisasi.host %}
                     <div class="event-action">
                         <a href="{% url 'eventEdit' event.id %}" class="action edit"><i class="fa-regular fa-pen-to-square"></i> Edit Event</a>
@@ -28,7 +32,9 @@
                 
                 <br>
                 <div class="info-list">
-                    <ul>            
+                    <ul>    
+                        <li><a href="{% url 'detail' event.organisasi %}"><i class="fa-solid fa-user-group"  style="color: green;"></i><span> Penyelenggara : </span><strong> {{event.organisasi|capfirst}}</strong></a></li>
+                        <br>        
                         <li><i style="color: #4CAF50;"  class="fa-regular fa-circle-question"></i> Keterangan :<p>{{event.desciption}}</p></li>
                         <li><i style="color: #1D95C9;" class="fa-regular fa-calendar"></i> Jadwal : <p>{{event.jadwal}}</p></li>
                         <li><i style="color: red;" class="fa-solid fa-location-dot"></i> Lokasi : <p>{{event.lokasi}}</p></li>
@@ -88,7 +94,7 @@
         
         <div class="left-side">
             <div class="content-header">
-                <h3>Event terbaru</h3>
+                <h3>Event Lain dari Organisasi ini</h3>
                 <a href=""><p>selengkapnya</p></a>
               </div>
               <div class="event-container">

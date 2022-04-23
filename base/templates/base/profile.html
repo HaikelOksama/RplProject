@@ -32,6 +32,9 @@
                 <ul>
                     <li>Username : {{profile.user}}</li>
                     <li>Bio : {{profile.bio}} </li>
+                    {% if profile.fakultas %}
+                    <li>Fakultas : {{profile.fakultas}} </li>
+                    {% endif %}
                     <li>Interest : 
                         {% for topic in interest %}
                         {{topic.name}},

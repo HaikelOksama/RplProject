@@ -10,7 +10,7 @@ class ProfileForm(forms.ModelForm):
         fields = '__all__'
         exclude = ['user']
         widgets = {
-            'interest' : forms.CheckboxSelectMultiple()
+            'interest' : forms.CheckboxSelectMultiple(),
         }
  
 

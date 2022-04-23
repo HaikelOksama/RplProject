@@ -7,6 +7,11 @@ from django.contrib.auth.models import User
 # class Recomendasi(models.Model):
 #     user = models.ForeignKey(User, on_delete=models.CASCADE)
 
+class Fakultas(models.Model):
+    name = models.CharField(max_length=50)
+    
+    def __str__(self):
+        return self.name
 
 class Topic(models.Model):
     name = models.CharField(max_length=50)
@@ -19,7 +24,7 @@ class UserProfile(models.Model):
     bio = models.TextField(blank=True, null=True)
     interest = models.ManyToManyField(Topic, blank=True, related_name='interest')
     avatar = models.ImageField(upload_to = 'user/', blank=True, null=True)
-    
+    fakultas = models.ForeignKey(Fakultas, on_delete=models.CASCADE, null=True)
     def __str__(self):
         return self.user.username
 
@@ -36,12 +41,14 @@ class Choice(models.Model):
     question = models.ForeignKey(Pertanyaan, on_delete=models.CASCADE)
     choic_text = models.CharField(max_length=50)
     value = models.IntegerField(default=0)
-    
+
+
 
 class Organisasi(models.Model):
     host = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
     topic = models.ForeignKey(Topic, on_delete=models.SET_NULL, null=True)
-
+    fakultas = models.ForeignKey(Fakultas, on_delete=models.SET_NULL, null=True)
+    
     name = models.CharField(max_length=50, unique=True)   
     description = models.TextField(null=True, blank=True)
     updated = models.DateTimeField(auto_now= True)

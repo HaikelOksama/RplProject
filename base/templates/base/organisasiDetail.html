@@ -29,6 +29,7 @@
 
         
         <center><h2>{{organisasi.name}}</h2></center>
+        <center><h3>{{organisasi.fakultas}}</h3></center>
         <p>{{organisasi.description}}</p>
         <div class="kegiatan-img">
             <p>Galeri Kegiatan</p>
@@ -60,6 +61,8 @@
             
             <hr>
         </div>
+        {% empty %}
+        <h3>Belum ada kegiatan pada organisasi ini!</h3>
     </a>
         {% endfor %}
     </div>
