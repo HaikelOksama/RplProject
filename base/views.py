@@ -1,7 +1,8 @@
 from datetime import datetime
 from multiprocessing import context
 from django.forms import PasswordInput
-from django.shortcuts import redirect, render
+from django.http import Http404
+from django.shortcuts import get_object_or_404, redirect, render
 
 
 from django.contrib.auth import authenticate, login, logout
@@ -103,12 +104,15 @@ def logoutUser(request):
 
 @login_required(login_url='login')
 def profileView(request, username):
-    user = User.objects.get(username=username)
-    profile = UserProfile.objects.get(user = user)
-    organisasi = user.organisasi_set.all()
-    interest = profile.interest.all()
-    
-    comment =   profile.comment_set.all()
+    try:
+        user = User.objects.get(username=username)
+        profile = UserProfile.objects.get(user = user)
+        organisasi = user.organisasi_set.all()
+        interest = profile.interest.all()
+        
+        comment =   profile.comment_set.all()
+    except :
+        raise Http404
 
     context = {
         'comment' : comment,
@@ -184,6 +188,21 @@ def home(request):
     }
 
     return render(request, 'base/home copy.html', context)
+
+def rekomendasiList(request):
+    if request.user.is_authenticated:
+        profile = UserProfile.objects.get(user = request.user)
+        interest = profile.interest.all()
+        rekomendasi = Organisasi.objects.filter(topic__in = interest)
+    
+    else:
+        rekomendasi = None
+    context = {
+        'rekomendasi' : rekomendasi,
+        'profile': profile,
+        'interest': interest,
+    }   
+    return render(request, 'base/rekomendasi.html', context)
     
 def organisasiList(request):
     #organisasi = Organisasi.objects.all()
@@ -258,10 +277,26 @@ def editEvent(request, pk):
     return render(request, 'base/eventEdit.html', context)
 
 @login_required(login_url='login')
+def deleteEvent(request, pk):
+    event = get_object_or_404(Event, id=pk)
+    page = 'event'
+    if request.user == event.organisasi.host:
+        if request.method == 'POST':
+            event.delete()
+            return redirect('detail', event.organisasi)
+    else:
+        return redirect('home')
+
+    context = {
+        'obj' : event,
+        'page' : page
+    }
+    return render(request, 'base/delete.html', context)
+
+@login_required(login_url='login')
 def createEvent(request, organisasi):
     organisasi = Organisasi.objects.get(name = organisasi)
     form = EventForm()
-
     if request.user != organisasi.host:
         return redirect('home')
 
@@ -301,8 +336,10 @@ def createFeed(request, organisasi):
 
     return render(request, 'base/newFeed.html', context)
 
+@login_required(login_url='login')
 def deleteFeed(request, pk):
-    feed = Feed.objects.get(id=pk)
+    feed = get_object_or_404(Feed, id=pk)
+    page = 'feed'
     if request.user == feed.organisasi.host:
         if request.method == 'POST':
             feed.delete()
@@ -312,6 +349,7 @@ def deleteFeed(request, pk):
 
     context = {
         'obj' : feed,
+        'page': page,
     }
     
     return render(request, 'base/delete.html', context)

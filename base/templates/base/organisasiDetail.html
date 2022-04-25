@@ -8,7 +8,7 @@
 
     <div class="organisasi-profile">
         
-        <div class="organisasi-head">
+        <div class="organisasi-head" style="background-image: url({% static 'images/card-bg.png' %});">
             {% if organisasi.profile_picture %}
             <div class="org-picture">
                 <img src="{{organisasi.profile_picture.url}}" alt="" srcset="">
@@ -31,23 +31,29 @@
         <center><h2>{{organisasi.name}}</h2></center>
         <center><h3>{{organisasi.fakultas}}</h3></center>
         <p>{{organisasi.description}}</p>
-        <div class="kegiatan-img">
+        <div class="kegiatan-img" style="background-image: url({% static 'images/card.png' %});">
             <p>Galeri Kegiatan</p>
             <div class="activityimg">
-                {% if organisasi.showcase1 %}
-                <img src="{{organisasi.showcase1.url}}" alt="" srcset="">
-                {% endif %}
-                {% if organisasi.showcase2 %}
-                <img src="{{organisasi.showcase2.url}}" alt="" srcset="">
-                {% endif %}
-                {% if organisasi.showcase3 %}
-                <img src="{{organisasi.showcase3.url}}" alt="" srcset="">
+                {% if organisasi.showcase1 or organisasi.showcase3 or organisasi.showcase3 %}
+                
+                    {% if organisasi.showcase1 %}
+                    <img src="{{organisasi.showcase1.url}}" alt="" srcset="">
+                    {% endif %}
+                    {% if organisasi.showcase2 %}
+                    <img src="{{organisasi.showcase2.url}}" alt="" srcset="">
+                    {% endif %}
+                    {% if organisasi.showcase3 %}
+                    <img src="{{organisasi.showcase3.url}}" alt="" srcset="">
+                    {% endif %}
+
+                {% else %}
+                    <h2>No Image</h2>
                 {% endif %}
             </div>
         </div>
     </div>
 
-    <div class="kegiatan">
+    <div class="kegiatan" >
         <h2>Kegiatan</h2>
         {% for event in events %}
         <a href="{% url 'event' event.id %}">

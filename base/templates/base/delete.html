@@ -6,11 +6,14 @@
 
 <div class = "new-event-container">
     <form action="" method="POST">
-    <h2>Anda yakin ingin menghapus {{obj.title}}</h2>
+    {% if page == 'feed' %}
+    <h2><i class="fa-solid fa-circle-exclamation" style="color: orange;"></i> Anda yakin ingin menghapus feed {{obj.title}} ??</h2>
+    {% elif page == 'event' %}
+    <h2><i class="fa-solid fa-circle-exclamation" style="color: orange;"></i> Anda yakin ingin menghapus event {{obj.name}} ??</h2>
+    {% endif %}
         {% csrf_token %}
         <div class="event-form-wrapper">
         <input style="background-color : red;" type="submit" value="Confirm">
-        <br>
         <a href="{{request.META.HTTP_REFERER}}"><button class="button-43" role="button">Batal</button></a>
         </div>        
     </form>

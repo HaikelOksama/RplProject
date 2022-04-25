@@ -15,6 +15,9 @@ urlpatterns = [
     path("organisasi/<str:organisasi>/create-event/", views.createEvent, name="create-event"),
     path('event/<str:pk>', views.eventDetail, name='event'),
     path('event/<str:pk>/edit', views.editEvent, name='eventEdit'),
+    path('event/<str:pk>/delete', views.deleteEvent, name='eventDelete'),
+
+    path('rekomendasi/', views.rekomendasiList, name='rekomendasi'),
 
     path("organisasi/<str:organisasi>/new-feed/", views.createFeed, name="create-feed"),
     path("delete/<str:pk>", views.deleteFeed, name="delete_feed"),
@@ -25,7 +28,7 @@ urlpatterns = [
     path('logout/', views.logoutUser, name='logout'),
     path('register/', views.registerView, name='register'),
 
-
+    
 ]
 
 

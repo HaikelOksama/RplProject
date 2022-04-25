@@ -19,31 +19,6 @@ class Topic(models.Model):
     def __str__(self):
         return self.name
 
-class UserProfile(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
-    bio = models.TextField(blank=True, null=True)
-    interest = models.ManyToManyField(Topic, blank=True, related_name='interest')
-    avatar = models.ImageField(upload_to = 'user/', blank=True, null=True)
-    fakultas = models.ForeignKey(Fakultas, on_delete=models.CASCADE, null=True)
-    def __str__(self):
-        return self.user.username
-
-class Pertanyaan(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    text = models.CharField(max_length= 50)
-    topic = models.ForeignKey(Topic, on_delete=models.CASCADE)
-    
-
-    def __str__(self):
-        return self.text
-    
-class Choice(models.Model):
-    question = models.ForeignKey(Pertanyaan, on_delete=models.CASCADE)
-    choic_text = models.CharField(max_length=50)
-    value = models.IntegerField(default=0)
-
-
-
 class Organisasi(models.Model):
     host = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
     topic = models.ForeignKey(Topic, on_delete=models.SET_NULL, null=True)
@@ -78,6 +53,16 @@ class Event(models.Model):
 
     def __str__(self):
         return self.name
+    
+class UserProfile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    bio = models.TextField(blank=True, null=True)
+    interest = models.ManyToManyField(Topic, blank=True, related_name='interest')
+    avatar = models.ImageField(upload_to = 'user/', blank=True, null=True)
+    fakultas = models.ForeignKey(Fakultas, on_delete=models.CASCADE, null=True)
+    follow = models.ManyToManyField(Organisasi, blank=True, related_name='follow')
+    def __str__(self):
+        return self.user.username
 
 class Comment(models.Model):
     user = models.ForeignKey(UserProfile, on_delete=models.CASCADE)

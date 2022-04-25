@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
-
+{% load static %}
 {% block title %}Home{% endblock title %}
+
 
 {% block content %}
 
@@ -8,6 +9,60 @@
 
 <!-- main content start -->
 <div class="content">
+ 
+  <div class="right-side">
+    <div class="main-content-header">
+        <h2>Selamat Datang di Sistem manajemen Organisasi</h2>
+    </div>
+    <div class="home-main">
+      <div class="quick-action">
+        <h3>Aksi Cepat</h3>
+        <div class="home-action-wrapper">
+          <button class="button-43" role="button">Edit info Organisasi</button>
+          <button class="button-43" role="button">Tambah event baru</button>
+          <button class="button-43" role="button">Lihat profil Organisasi</button>
+        </div>
+      </div>
+      <br>
+      <div class="org-feed">
+        {% for feed in feeds %}
+        <div class="feed-card" style="background-image: url({% static 'images/card-bg.png' %})">
+          <div class="feed-head">
+            <div class="feed-prof">
+              {% if feed.organisasi.profile_picture %}
+              <div class="feed-org-img">
+                <img src="{{feed.organisasi.profile_picture.url}}">    
+              </div>
+              {% endif %}
+              <p>{{feed.organisasi}} Memposting <strong>"{{feed.title}}"</strong></p>
+            </div>
+            <div>
+              <p>{{feed.created|timesince}}</p>
+            </div>
+          </div>
+          <div class="feed-body" style="background-image: url({% static 'images/card.png' %})">
+            <p>{{feed.body}}</p>
+            {% if feed.banner %}
+            <div class="banner-wrapper">
+              <img src="{{feed.banner.url}}" alt="">
+            
+            </div>
+            {% endif %}
+          </div>
+          {% if request.user == feed.organisasi.host %}
+          <div>
+            <a href="{% url 'delete_feed' feed.id %}"><p style="color: red;">Hapus</p></a>
+          </div>
+          
+          {% endif %}
+        </div>
+        <br>
+        {% endfor %}
+      </div>
+    </div>
+
+  </div>
+
   <div class="left-side">
     <div class="content-header">
       <h3>Event terbaru</h3>
@@ -37,7 +92,9 @@
           <div class="card-name">
             <p>{{event.organisasi}}</p>
             <small>{{event.name}}</small>
-            <small>{{event.jadwal|timeuntil}}</small>
+            {% if event.jadwal %}
+            <small>{{event.jadwal}}</small>
+            {% endif %}
           </div>
         </div>
       </a>
@@ -50,7 +107,7 @@
     {% if rekomendasi %}
       <div class="content-header">
         <h3>Organisasi direkomendasikan</h3>
-        <a href=""><p>selengkapnya</p></a>
+        <a href="{% url 'rekomendasi' %}"><p>selengkapnya</p></a>
       </div>
       <div class="event-container">
         
@@ -83,60 +140,6 @@
     
     </div>
     {% endif %}
-  </div>
-
-  
-  <div class="right-side">
-    <div class="main-content-header">
-        <h2>Selamat Datang di Sistem manajemen Organisasi</h2>
-    </div>
-    <div class="home-main">
-      <div class="quick-action">
-        <h3>Aksi Cepat</h3>
-        <div class="home-action-wrapper">
-          <button class="button-43" role="button">Edit info Organisasi</button>
-          <button class="button-43" role="button">Tambah event baru</button>
-          <button class="button-43" role="button">Lihat profil Organisasi</button>
-        </div>
-      </div>
-      <br>
-      <div class="org-feed">
-        {% for feed in feeds %}
-        <div class="feed-card">
-          <div class="feed-head">
-            <div class="feed-prof">
-              {% if feed.organisasi.profile_picture %}
-              <div class="feed-org-img">
-                <img src="{{feed.organisasi.profile_picture.url}}">    
-              </div>
-              {% endif %}
-              <p>{{feed.organisasi}} Memposting <strong>"{{feed.title}}"</strong></p>
-            </div>
-            <div>
-              <p>{{feed.created|timesince}}</p>
-            </div>
-          </div>
-          <div class="feed-body">
-            <p>{{feed.body}}</p>
-            {% if feed.banner %}
-            <div class="banner-wrapper">
-              <img src="{{feed.banner.url}}" alt="">
-            
-            </div>
-            {% endif %}
-          </div>
-          {% if request.user == feed.organisasi.host %}
-          <div>
-            <a href="{% url 'delete_feed' feed.id %}"><p style="color: red;">Hapus</p></a>
-          </div>
-          
-          {% endif %}
-        </div>
-        <br>
-        {% endfor %}
-      </div>
-    </div>
-
   </div>
 </div>
 
