@@ -6,17 +6,17 @@
    --color-light: #B7CADB;
   }
 
+@import url('https://fonts.googleapis.com/css2?family=Bungee+Shade&family=Oxygen:wght@300&family=Quicksand:wght@300&family=Raleway:wght@100&display=swap');
 
 body {
-    font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    
     margin: 0 auto;
     background-color: var(--color-main);
     overflow-x: hidden;
 }
 
 * {
-    font-family: "DM Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans",
-      "Helvetica Neue", sans-serif;
+    font-family: 'Quicksand', sans-serif;
     text-rendering: optimizeLegibility;
     /* color: inherit; */
     font-size: inherit;
@@ -76,6 +76,10 @@ a, a:visited, a:hover, a:active {
     justify-content: space-evenly;
     align-items: center;
     padding: 5px;;
+}
+
+nav {
+    border-bottom: 2px solid rgb(190, 221, 251);
 }
 
 .logo {
@@ -213,6 +217,7 @@ main {
     justify-content: space-evenly;
     width: 100%;
     flex-wrap: wrap;
+    gap: 10px;
 }
 
 .left-side {
@@ -222,10 +227,9 @@ main {
     flex-grow: 1;
     width: 350px;
     height: fit-content;
-    padding: 10px;
     border-radius: 14px;
     margin-bottom: 10px;
-    margin-left: 10px;
+    box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
 }
 
 
@@ -235,6 +239,8 @@ main {
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
+    padding: 10px;
+    padding-bottom: 0;
 }
 
 .event-container {
@@ -242,9 +248,10 @@ main {
     border-radius:14px;
     margin-top: 10px;
     display: flex;
-    width: 100%;
+    width: 95%;
     flex-direction: column;
-    padding: 10px 10px;
+    padding: 10px;
+    margin: 10px;
     height: fit-content;
     align-items: center;
 }
@@ -320,18 +327,29 @@ main {
     width: 1000px;
     flex-grow: 3;
     max-height: fit-content;
-    padding: 10px;
+    box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
     border-radius: 14px;
     margin-bottom: 10px;
 }
 
 .right-side h2 {
     font-size: 28px;
-    color: #37AEE2;
+    color: white;
 }
 
 .main-content-header{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #22a6df;
+    border-top-left-radius: 14px;
+    border-top-right-radius: 14px;
+}
 
+hr.red {
+    border-top: 3px solid #17759C;
+    width: 50%;
 }
 
 .home-main {
@@ -340,25 +358,60 @@ main {
     justify-content:space-evenly;
     align-items: center;
     width: 100%;
-    background: rgb(211,231,251);
-    background: linear-gradient(180deg, rgba(211,231,251,0.989233193277311) 0%, rgba(245,245,245,1) 68%, rgba(255,255,255,1) 100%);
+    
 }
 
 .quick-action {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
+    flex-wrap: wrap;
     align-items: center;
+    justify-content: center;
     width: 100%;
-    background-color:#17749c33;
+    background-color:#17759C;
+    color: rgb(0, 0, 0);
+    height: 100px;
+    border-bottom: 2px solid grey;
+    height: 75px;
     color: white;
 }
+
+
+.quick-action a {
+    display: flex;
+    flex-direction: column;
+    width: 33.3%;
+    height: 100%;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+}
+
+.quick-action a:hover{
+    background-color: rgba(255, 255, 255, 0.466);
+}
+
+.quick-action a.active {
+    
+}
+
+.bruh {
+    width: 50%;
+    height: 5px;
+    background-color:red;
+    border-radius: 24px;
+}
+
+
 
 .org-feed{
     display: flex;
     flex-direction: column;
     width: 100%;
-    height: fit-content;
+    max-height: 90vh;
+    padding-bottom: 20px;
     align-items: center;
+    overflow-y: scroll;
 }
 
 .feed-card {
@@ -367,7 +420,7 @@ main {
     width: 95%;
     background-color: white;
     padding: 20px;
-    box-shadow: rgba(0, 0, 0, 0.1) 0px 20px 25px -5px, rgba(0, 0, 0, 0.04) 0px 10px 10px -5px;
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 0.0625em 0.0625em, rgba(0, 0, 0, 0.25) 0px 0.125em 0.5em, rgba(255, 255, 255, 0.1) 0px 0px 0px 1px inset;
 }
 
 .feed-head {
@@ -381,18 +434,19 @@ main {
 }
 
 .feed-org-img {
-    min-width: 10%;
+    min-width: auto;
     border-radius: 50%;
     margin-right: 20px;
     border-radius: 50%;
-
+    background-color: rgba(0, 0, 0, 0.072);
 }
 
 .feed-head img {
     border-radius: 50%;
-    width: 4vw;
-    height: 4vw;
+    width: 60px;
+    height: 60px;
     object-fit: cover;
+    border: 3px solid whitesmoke;
 }
 
 .feed-prof {
@@ -412,14 +466,27 @@ main {
     align-self: center;
 }
 
+.feed-action {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.feed-action a {
+    align-self: flex-end;
+    justify-self: flex-end;
+}
+
 .banner-wrapper {
     max-width: 50%;
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px, rgba(0, 0, 0, 0.22) 0px 10px 10px;
+    width: fit-content;
 }
 
 .banner-wrapper img{
     object-fit: cover;
     max-width: 100%;
     max-height: 300px;
+    
 }
 
 
@@ -462,7 +529,7 @@ main {
     border: 1px solid grey;
     padding: 10px;
     margin: 10px;
-    background-color: white;
+    background-color: #0099ff;
     border-radius: 10px;
 }
 
@@ -961,6 +1028,7 @@ textarea:focus {
     display: flex;
     flex-direction: column;
     height: fit-content;
+    gap: 10px;
 }
 
 .event-wrapper{
@@ -1054,10 +1122,8 @@ textarea:focus {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    background-color: #1E96C8;
-    justify-content: space-between;
-    padding: 10px;
-
+    justify-content: center;
+    gap: 10px;
 }
 
 .comment-wrapper {
@@ -1070,6 +1136,18 @@ textarea:focus {
     justify-content: space-evenly;
     align-items: center;
     margin-right: 10px;
+  
+}
+
+.my-comment {
+    padding-top: 80px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    max-height: 60vh;
+    overflow-y: scroll;
 }
 
 
@@ -1091,10 +1169,14 @@ textarea:focus {
 }
 
 .comment-profile {
+    color:#c6efff;
     display: flex;
     flex-direction: row;
     width: 100%;
     align-items: center;
+}
+.comment-profile:hover {
+    color:#90ddfc;
 }
 
 .comment-avatar-container {
@@ -1185,3 +1267,44 @@ textarea:focus {
 }
 
 /* endof rekomendasi */
+
+.w-60 {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 2;
+    width: 60%;
+    padding: 10px;
+    background-color: #677078;
+    max-height: 700px;
+    overflow-y: scroll;
+    min-height: 500px;
+}
+
+
+.w-30 {
+    flex-grow: 1;
+}
+
+.bozo {
+    display: flex;
+    width: 80%;
+}
+
+.bleh img {
+    height: 80px;
+    width: 80px;
+}
+
+.all-event-container {
+    padding: 10px;
+    width: 100%;    
+    gap: 10px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.end {
+    font-size: 30px;
+    color: white;
+}

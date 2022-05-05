@@ -1,9 +1,8 @@
 from datetime import datetime
 from multiprocessing import context
 from django.forms import PasswordInput
-from django.http import Http404
+from django.http import Http404, HttpResponseRedirect
 from django.shortcuts import get_object_or_404, redirect, render
-
 
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
@@ -35,7 +34,10 @@ def loginView(request):
 
         if user is not None:
             login(request, user)
-            return redirect('home')
+            if 'next' in request.GET:
+                return redirect(request.GET['next'])
+            else:
+                return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
         else:
             messages.error(request, 'Username or password is wrong')
 
@@ -109,7 +111,8 @@ def profileView(request, username):
         profile = UserProfile.objects.get(user = user)
         organisasi = user.organisasi_set.all()
         interest = profile.interest.all()
-        
+        followedOrg = profile.follow.all()
+        print(followedOrg)     
         comment =   profile.comment_set.all()
     except :
         raise Http404
@@ -119,6 +122,7 @@ def profileView(request, username):
         'profile' : profile,
         'organisasi' : organisasi,
         'interest' : interest,
+        'followed': followedOrg,
     }
     return render(request, 'base/profile.html', context)
 
@@ -163,46 +167,83 @@ def editOrg(request, pk):
 
 
 def home(request): 
+    
     eventList = Event.objects.filter(active = True)
     topics = Topic.objects.all()
     event = eventList[0:3]
 
     feed = Feed.objects.all()
-            
+    bruh = ''          
     if request.user.is_authenticated:
         profile = UserProfile.objects.get(user = request.user)
         interest = profile.interest.all()
         print(interest)
+        print(request.user.userprofile.avatar.url)      
         rekomendasi = Organisasi.objects.filter(topic__in = interest)
+        followed = profile.follow.all()
+        
+        
+        f = request.GET.get('feed') 
+        if f == 'rekomendasi':
+            feed = Feed.objects.filter(organisasi__in = rekomendasi)
+            bruh = 'req'
+        if f == 'followed' :
+            feed = Feed.objects.filter(organisasi__in = followed)
+            bruh = 'fol'
         print(rekomendasi)
+        print(followed)
     else:
         rekomendasi = None
     
     q = request.GET.get('q') if request.GET.get('q') != None else '' 
+    print(feed.count())
+    count = feed.count()
     context = {
         'eventList' : event,
+        'count' : count,
         'feeds' : feed,
         'topics' : topics,
         'rekomendasi' : rekomendasi,
         'q' : q,
+        'bruh' : bruh
     }
 
     return render(request, 'base/home copy.html', context)
 
+@login_required(login_url='login')
 def rekomendasiList(request):
     if request.user.is_authenticated:
         profile = UserProfile.objects.get(user = request.user)
         interest = profile.interest.all()
         rekomendasi = Organisasi.objects.filter(topic__in = interest)
     
-    else:
-        rekomendasi = None
     context = {
         'rekomendasi' : rekomendasi,
         'profile': profile,
         'interest': interest,
     }   
     return render(request, 'base/rekomendasi.html', context)
+    
+def eventList(request):
+    eventList = Event.objects.filter(active = True)
+    
+    
+    if request.user.is_authenticated:
+        profile = UserProfile.objects.get(user=request.user)
+        followed = profile.follow.all()
+        eventFollow = Event.objects.filter(organisasi__in = followed)
+    else:
+        eventFollow = None
+        followed = None 
+        profile = None 
+    print(eventList)
+    
+    context = {
+        'followed' : eventFollow,
+        'events' : eventList,
+        'profile' : profile,
+    }
+    return render(request, 'base/event.html', context)
     
 def organisasiList(request):
     #organisasi = Organisasi.objects.all()
@@ -224,10 +265,37 @@ def organisasiList(request):
 def organisasiDetail(request, name):
     organisasi = Organisasi.objects.get(name=name)
     events = organisasi.event_set.all()
+    if request.user.is_authenticated:
+        user = UserProfile.objects.get(user=request.user)
+        follow = user.follow.all()
+        print(follow)
+        if organisasi in follow:
+            followed = True
+        else:
+            followed = False
+                 
+        if request.method == 'POST':
+            if not followed :          
+                addFollow = Organisasi.objects.get(name=request.POST['follow'])
+                user.follow.add(addFollow)
+                return redirect('detail', organisasi.name)
+            elif followed:
+                addFollow = Organisasi.objects.get(name=request.POST['follow'])
+                user.follow.remove(addFollow)   
+                return redirect('detail', organisasi.name)
+    
+    else:
+        user = None
+        followed = None
+    # if organisasi.follow_set.contains(organisasi):
+    #     followed = True
+    
+    print(followed)
     context = {
         'organisasi' : organisasi,
         'events' : events,
-        
+        'profile' : user,
+        'followed' : followed
     }
     return render(request, 'base/organisasiDetail.html', context)
 

@@ -13,6 +13,8 @@ urlpatterns = [
     path('update/<str:pk>', views.editOrg, name='update'),
 
     path("organisasi/<str:organisasi>/create-event/", views.createEvent, name="create-event"),
+    
+    path('event/', views.eventList, name='eventList'),
     path('event/<str:pk>', views.eventDetail, name='event'),
     path('event/<str:pk>/edit', views.editEvent, name='eventEdit'),
     path('event/<str:pk>/delete', views.deleteEvent, name='eventDelete'),

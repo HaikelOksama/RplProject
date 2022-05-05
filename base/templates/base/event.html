@@ -1,0 +1,115 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Rekomendasi{% endblock title %}
+
+{% block content %}
+
+  <div class="rekomendasi-container w-evt">
+      <div class="rekomendasi-header">
+          <img src="{% static 'images/rec-head.jpg' %}" alt="">
+          <div class="rekomendasi-header-info">
+              <h2>Event</h2>
+              <p>Berikut adalah event akan datang</p>
+          </div>
+      </div>
+
+    <div class="all-event-container">
+      {% now "Y-m-d" as todays_date %}    
+      <div class="rekomendasi-list w-60">
+        {% for event in events %}
+        {% if todays_date < event.jadwal|date:"Y-m-d" %}
+          <a href="{% url 'event' event.id %}" class="bozo">
+            <div class="event-card bleh">
+              <div class="card-profile">
+                {% if event.organisasi.profile_picture %}
+                <img
+                  src="{{event.organisasi.profile_picture.url}}"
+                  alt=""
+                  srcset=""
+                />
+                {% else %}
+                <img
+                  src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQp9XXU7SVb7ZkED-wSC9xKUgvs7qD8ypvLxpjllkTcd_pv_ne1jpQrbvCme2MEXMMIMBM&usqp=CAU"
+                  alt=""
+                  srcset=""
+                />
+                {% endif %}
+              </div>
+              
+              <div class="card-name">
+                <p style="color: white;">{{event.organisasi}}</p>
+                <small>{{event.name}}</small>
+                {% if event.jadwal %}
+                <small>{{event.jadwal}}</small>
+                {% endif %}
+              </div>
+            </div>
+          </a>
+        {% endif %}
+        {% endfor %}
+        <br>
+        <center><h1 class="end">Semua event telah ditampilkan</h1></center>
+      </div>
+      
+      
+      <div class="left-side w-30" >
+    
+        <div class="content-header">
+          <h3>Event dari organisasi yang diikuti</h3>
+          
+        </div>
+        <div class="event-container">
+        {% if request.user.is_authenticated %}
+          {% if followed %}
+            {% for event in followed %}
+              {% if event.active %}
+                <a href="{% url 'event' event.id %}">
+                  <div class="event-card">
+                    <div class="card-profile">
+                      {% if event.organisasi.profile_picture %}
+                      <img
+                        src="{{event.organisasi.profile_picture.url}}"
+                        alt=""
+                        srcset=""
+                      />
+                      {% else %}
+                      <img
+                        src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQp9XXU7SVb7ZkED-wSC9xKUgvs7qD8ypvLxpjllkTcd_pv_ne1jpQrbvCme2MEXMMIMBM&usqp=CAU"
+                        alt=""
+                        srcset=""
+                      />
+                      {% endif %}
+                    </div>
+                    
+                    <div class="card-name">
+                      <p style="color: white;">{{event.organisasi}}</p>
+                      <small>{{event.name}}</small>
+                      {% if event.jadwal %}
+                      <small>{{event.jadwal}}</small>
+                      {% endif %}
+                    </div>
+                  </div>
+                </a>
+              {% endif %}
+            {% empty %}
+            <h2 style = "color: white;">Belum ada event</h2>
+            {% endfor %}
+          {% endif %}
+          
+          {% else %}
+            <h3 style = "color: white;"> <a style="color: rgb(109, 248, 192);" href="{% url 'login' %}">  Login </a>untuk lihat event dan ikuti organisasi favorit anda...</h3>
+          {% endif %}
+        </div>
+        
+        <hr class='red'>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="#0099ff" fill-opacity="1" d="M0,160L48,154.7C96,149,192,139,288,128C384,117,480,107,576,122.7C672,139,768,181,864,197.3C960,213,1056,203,1152,186.7C1248,171,1344,149,1392,138.7L1440,128L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path></svg>
+      </div>
+    </div>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
+      <path fill="#0099ff" fill-opacity="1" d="M0,192L26.7,202.7C53.3,213,107,235,160,234.7C213.3,235,267,213,320,213.3C373.3,213,427,235,480,208C533.3,181,587,107,640,96C693.3,85,747,139,800,181.3C853.3,224,907,256,960,261.3C1013.3,267,1067,245,1120,240C1173.3,235,1227,245,1280,213.3C1333.3,181,1387,107,1413,69.3L1440,32L1440,320L1413.3,320C1386.7,320,1333,320,1280,320C1226.7,320,1173,320,1120,320C1066.7,320,1013,320,960,320C906.7,320,853,320,800,320C746.7,320,693,320,640,320C586.7,320,533,320,480,320C426.7,320,373,320,320,320C266.7,320,213,320,160,320C106.7,320,53,320,27,320L0,320Z"></path>
+    </svg>
+  </div>
+
+{% endblock content %}
+
+

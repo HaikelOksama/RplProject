@@ -24,6 +24,22 @@
                     <a href="{% url 'update' organisasi.id %}"><button class="button-43" role="button">Update Organisasi</button></a>
                 </div>        
             </div>
+            {% elif request.user.is_authenticated %}
+                {% if not followed %}
+                <div class="org-action">
+                    <form action="" method="post">{% csrf_token %}
+                        <input type="hidden" name="follow" value="{{organisasi.name}}">
+                        <input class="button-43" type="submit" value="Follow">
+                    </form>
+                </div>
+                {% else %}
+                <div class="org-action">
+                    <form action="" method="post">{% csrf_token %}
+                        <input type="hidden" name="follow" value="{{organisasi.name}}">
+                        <input class="button-43" type="submit" value="Unfollow">
+                    </form>
+                </div>
+                {% endif %}
             {% endif %}
         </div>
 

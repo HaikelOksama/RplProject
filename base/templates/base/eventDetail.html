@@ -19,9 +19,7 @@
             <div class="event-information">   
                 <div class="event-head">
                     <h2>{{event.name|capfirst}}</h2>
-                    <div class="penyelenggara"  style="color: white;">
-                        
-                    </div>
+                    
                     {% if request.user == event.organisasi.host %}
                     <div class="event-action">
                         <a href="{% url 'eventEdit' event.id %}" class="action edit"><i class="fa-regular fa-pen-to-square"></i> Edit Event</a>
@@ -33,7 +31,11 @@
                 <br>
                 <div class="info-list">
                     <ul>    
-                        <li><a href="{% url 'detail' event.organisasi %}"><i class="fa-solid fa-user-group"  style="color: green;"></i><span> Penyelenggara : </span><strong> {{event.organisasi|capfirst}}</strong></a></li>
+                        <li>
+                            <a href="{% url 'detail' event.organisasi %}">
+                                <i class="fa-solid fa-user-group"  style="color: green;"></i><span> Penyelenggara : </span><strong style="color: #3399ff;"> {{event.organisasi|capfirst}}</strong>
+                            </a>
+                        </li>
                         <br>        
                         <li><i style="color: #4CAF50;"  class="fa-regular fa-circle-question"></i> Keterangan :<p>{{event.desciption}}</p></li>
                         <li><i style="color: #1D95C9;" class="fa-regular fa-calendar"></i> Jadwal : <p>{{event.jadwal}}</p></li>
@@ -45,9 +47,10 @@
     </div>
 
     <div class="below-part">
-
         <div class="comment-wrapper">
-            <h2><i style="color: #17759C;" class="fa-regular fa-comments"></i> Komentar</h2>
+            
+            <h2 class="comment-h2"><i style="color: #17759C;" class="fa-regular fa-comments"></i> Komentar</h2>
+            <div class="my-comment">
             {% if comments %}   
                 {% for comment in comments %}
                 <div class="comment-body">
@@ -72,6 +75,7 @@
                     <h2>Belum ada komentar pada event ini,,</h2>
                 </div>
                 {% endif %} 
+            </div>
             {% if request.user.is_authenticated %}
             <div class="comment-form">
                 <form action="" method="POST">
@@ -86,7 +90,7 @@
             {% else %}
             <div class="comment-form">
                 <div class="comment-wrap">
-                    <textarea name="body" id="" disabled cols="20" rows="5" placeholder="Berikan Komentar anda..."></textarea>
+                    <textarea name="body" id="" disabled cols="20" rows="5" placeholder="Login untuk memberikan komentar"></textarea>
                 </div>
             </div>
             {% endif %}

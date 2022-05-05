@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
+
 {% block title %}Home{% endblock title %}
 
 
@@ -11,19 +12,69 @@
 <div class="content">
  
   <div class="right-side">
-    <div class="main-content-header">
-        <h2>Selamat Datang di Sistem manajemen Organisasi</h2>
-    </div>
-    <div class="home-main">
-      <div class="quick-action">
-        <h3>Aksi Cepat</h3>
-        <div class="home-action-wrapper">
-          <button class="button-43" role="button">Edit info Organisasi</button>
-          <button class="button-43" role="button">Tambah event baru</button>
-          <button class="button-43" role="button">Lihat profil Organisasi</button>
+    {% comment %} <div class="main-content-header background">
+      
+      <h2>Selamat Datang di Sistem manajemen Organisasi</h2>
+    </div> {% endcomment %}
+    
+
+    <div class="home-main" >
+      {% if request.user.is_authenticated %}
+        <div class="quick-action">
+          {% if bruh == '' %}
+          <a href="{% url 'home' %}" id="select-item" class='active'>
+            <p><i class="fa-solid fa-house-chimney"></i>
+               All feed
+            </p>
+            <div class="bruh"></div>
+          </a>
+          {% else %}
+          <a href="{% url 'home' %}" id="select-item">
+            <p><i class="fa-solid fa-house-chimney"></i>
+              All feed
+            </p>
+          </a>
+          {% endif %}
+          {% if bruh == 'req' %}
+          <a href="{% url 'home' %}?feed=rekomendasi" id="select-item" class='active'> 
+            <p><i class="fa-solid fa-wand-magic-sparkles"></i>
+              Rekomendasi
+            </p>
+            <div class="bruh"></div>
+          </a>
+          {% else %}
+          <a href="{% url 'home' %}?feed=rekomendasi" id="select-item"> 
+            <p><i class="fa-solid fa-wand-magic-sparkles"></i>
+              Rekomendasi
+            </p>
+          </a>
+          {% endif %}
+          {% if bruh == 'fol' %}
+          <a href="{% url 'home' %}?feed=followed" id="select-item" class="active">
+            <p><i class="fa-solid fa-user-group"></i>
+              Diikuti
+            </p>
+            <div class="bruh"></div>
+          </a>
+          {% else %}
+          <a href="{% url 'home' %}?feed=followed" id="select-item">
+            <p><i class="fa-solid fa-user-group"></i>
+              Diikuti
+            </p>
+          </a>
+          {% endif %}
         </div>
+      {% else %}
+      <div class="quick-action">
+        <a href="{% url 'home' %}" id="select-item" class='active' style="width: 100%;">
+          <p>
+            All feed
+          </p>
+          <div class="bruh"></div>
+        </a>
       </div>
-      <br>
+      {% endif %} 
+      
       <div class="org-feed">
         {% for feed in feeds %}
         <div class="feed-card" style="background-image: url({% static 'images/card-bg.png' %})">
@@ -34,13 +85,14 @@
                 <img src="{{feed.organisasi.profile_picture.url}}">    
               </div>
               {% endif %}
-              <p>{{feed.organisasi}} Memposting <strong>"{{feed.title}}"</strong></p>
+              <p><a style="color: #0099ff;" href="{% url 'detail' feed.organisasi %}">{{feed.organisasi}}</a> memposting <strong>"{{feed.title}}"</strong></p>
             </div>
             <div>
               <p>{{feed.created|timesince}}</p>
             </div>
           </div>
-          <div class="feed-body" style="background-image: url({% static 'images/card.png' %})">
+    
+          <div class="feed-body" style="background-image: url({% static 'images/card.png' %}); ">
             <p>{{feed.body}}</p>
             {% if feed.banner %}
             <div class="banner-wrapper">
@@ -48,25 +100,32 @@
             
             </div>
             {% endif %}
-          </div>
-          {% if request.user == feed.organisasi.host %}
-          <div>
-            <a href="{% url 'delete_feed' feed.id %}"><p style="color: red;">Hapus</p></a>
+            {% if request.user == feed.organisasi.host %}
+          <div class="feed-action">
+            <a href="{% url 'delete_feed' feed.id %}">
+              <button class="button-1" role="button">Delete</button>
+            </a>
           </div>
           
           {% endif %}
         </div>
+          </div>
+          
         <br>
+        {% empty %}
+        <h2 style="color: black;">Nothing here but chicken!</h2>
         {% endfor %}
+        
       </div>
     </div>
 
   </div>
 
-  <div class="left-side">
+  <div class="left-side" >
+    
     <div class="content-header">
       <h3>Event terbaru</h3>
-      <a href=""><p>selengkapnya</p></a>
+      <a href="{% url 'eventList' %}"><p style="color: #1D95C9">selengkapnya</p></a>
     </div>
     <div class="event-container">
       {% for event in eventList %}
@@ -90,7 +149,7 @@
           </div>
           
           <div class="card-name">
-            <p>{{event.organisasi}}</p>
+            <p style="color: white;">{{event.organisasi}}</p>
             <small>{{event.name}}</small>
             {% if event.jadwal %}
             <small>{{event.jadwal}}</small>
@@ -100,14 +159,15 @@
       </a>
       {% endif %}
       {% endfor %}
-
+      
     </div>
-
-    <br>
+    
+    <hr class='red'>
+    
     {% if rekomendasi %}
       <div class="content-header">
         <h3>Organisasi direkomendasikan</h3>
-        <a href="{% url 'rekomendasi' %}"><p>selengkapnya</p></a>
+        <a href="{% url 'rekomendasi' %}"><p style="color: #1D95C9">selengkapnya</p></a>
       </div>
       <div class="event-container">
         
@@ -131,7 +191,7 @@
             </div>
             
             <div class="card-name">
-              <p>{{org.name}}</p>
+              <p  style="color: white;">{{org.name}}</p>
               <small>{{org.topic}}</small>
             </div>
           </div>
@@ -140,6 +200,7 @@
     
     </div>
     {% endif %}
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="#0099ff" fill-opacity="1" d="M0,160L48,154.7C96,149,192,139,288,128C384,117,480,107,576,122.7C672,139,768,181,864,197.3C960,213,1056,203,1152,186.7C1248,171,1344,149,1392,138.7L1440,128L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path></svg>
   </div>
 </div>
 

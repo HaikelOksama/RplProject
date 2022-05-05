@@ -67,6 +67,27 @@
                 </a>
             {% endfor %}
         </div>
+        <div class='my-org'>
+            <h2>Organisasi yang anda ikuti : {{followed.count}}</h2>
+            <hr>
+            {% for org in followed %}
+            <a href="{% url 'detail' org.name %}">
+                <div class="org-card">
+                    <div class="org-card-profile">
+                        <h3>{{org.name}}</h3>
+                        <small>{{org.topic}}</small>
+                    </div>
+                    <div class="org-image">
+                        {% if org.profile_picture %}
+                        <img src="{{org.profile_picture.url}}" alt="" srcset="">
+                        {% else %}
+                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQp9XXU7SVb7ZkED-wSC9xKUgvs7qD8ypvLxpjllkTcd_pv_ne1jpQrbvCme2MEXMMIMBM&usqp=CAU" alt="">
+                        {% endif %}
+                    </div>
+                </div>    
+                </a>
+            {% endfor %}
+        </div>
         <div class="my-activity">
             <h2>Aktivitas anda</h2>
             <hr>

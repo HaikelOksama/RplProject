@@ -1,0 +1,31 @@
+{% load static %}
+
+<nav>
+    <ul class="menu">
+      <li class="logos" style="background-image: url({% static 'images/logos.png' %})"><a href="{% url 'home' %}">O</a></li>
+      <li class="item"><a href="{% url 'organisasi' %}">Organisasi</a></li>
+      <li class="item"><a href="{% url 'rekomendasi' %}">Rekomendasi</a></li>
+      <li class="item"><a href="{% url 'eventList' %}">Event</a></li>
+      <li class="item"><a href="#">Informasi</a>
+      <li class="item ">
+          <form class="item" action="{% url 'organisasi' %}?q={{q}}" method="get">
+            <input type="text" name="q" placeholder="Cari Organisasi" />
+          </form>
+      </li>
+      {% if request.user.is_authenticated %}
+      <li class="item dropdown">
+        <button onclick="myFunction()" class="dropbtn" style="background-image : url({% if request.user.is_authenticated %}{{request.user.userprofile.avatar.url}}{% else %}https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQp9XXU7SVb7ZkED-wSC9xKUgvs7qD8ypvLxpjllkTcd_pv_ne1jpQrbvCme2MEXMMIMBM&usqp=CAU{% endif %});"></button>
+        <div id="myDropdown" class="dropdown-content">
+          <a href="{% url 'profile' request.user %}"><i class="fa-solid fa-address-card" style="color : grey;"></i><span>Profile</span></a>
+          <a href="{% url 'logout' %}"><i class="fa-solid fa-arrow-right-from-bracket" style="color : red;"></i><span>Logout</span></a>
+          <a href="#">My Org</a>
+        </div>
+      </li>
+      {% else %}
+      <li class="item login-btn">
+        <a class="login-nav" href="{% url 'login' %}">Login</a>
+      </li>
+      {% endif %}
+      <li class="toggle"><a href="#"><i class="fas fa-bars"></i></a></li>
+    </ul>
+</nav>

@@ -59,7 +59,8 @@ class UserProfile(models.Model):
     bio = models.TextField(blank=True, null=True)
     interest = models.ManyToManyField(Topic, blank=True, related_name='interest')
     avatar = models.ImageField(upload_to = 'user/', blank=True, null=True)
-    fakultas = models.ForeignKey(Fakultas, on_delete=models.CASCADE, null=True)
+    fakultas = models.ForeignKey(Fakultas, on_delete=models.CASCADE, null=True, blank=True)
+    
     follow = models.ManyToManyField(Organisasi, blank=True, related_name='follow')
     def __str__(self):
         return self.user.username
