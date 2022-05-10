@@ -517,16 +517,17 @@ input {
 .login-nav{
   justify-self: center;
   align-items: center;
-  color: black;
   min-width: 70px;
+  color: white;
   height: fit-content;
-  background-color: green;
+  background-color: #0080ff;
   border-radius: 14px;
+
 }
 
 .login-nav:hover{
   color: white;
-  background-color: rgb(1, 144, 1);
+  background-color: #3295f8;
 }
 
 .login-btn {

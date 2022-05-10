@@ -177,9 +177,9 @@ def home(request):
     if request.user.is_authenticated:
         profile = UserProfile.objects.get(user = request.user)
         interest = profile.interest.all()
-        print(interest)
-        print(request.user.userprofile.avatar.url)      
-        rekomendasi = Organisasi.objects.filter(topic__in = interest)
+ 
+        rekomendasi = Organisasi.objects.filter(topic__in = interest)[0:2]
+
         followed = profile.follow.all()
         
         
@@ -190,8 +190,7 @@ def home(request):
         if f == 'followed' :
             feed = Feed.objects.filter(organisasi__in = followed)
             bruh = 'fol'
-        print(rekomendasi)
-        print(followed)
+
     else:
         rekomendasi = None
     

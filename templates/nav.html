@@ -14,7 +14,7 @@
       </li>
       {% if request.user.is_authenticated %}
       <li class="item dropdown">
-        <button onclick="myFunction()" class="dropbtn" style="background-image : url({% if request.user.is_authenticated %}{{request.user.userprofile.avatar.url}}{% else %}https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQp9XXU7SVb7ZkED-wSC9xKUgvs7qD8ypvLxpjllkTcd_pv_ne1jpQrbvCme2MEXMMIMBM&usqp=CAU{% endif %});"></button>
+        <button onclick="myFunction()" class="dropbtn" style="background-image : url({% if request.user.userprofile.avatar %}{{request.user.userprofile.avatar.url}}{% else %}https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQW6wRWOjhYe9HP1hvqWiY_x4tDvhbtNcvKUw&usqp=CAU{% endif %});"></button>
         <div id="myDropdown" class="dropdown-content">
           <a href="{% url 'profile' request.user %}"><i class="fa-solid fa-address-card" style="color : grey;"></i><span>Profile</span></a>
           <a href="{% url 'logout' %}"><i class="fa-solid fa-arrow-right-from-bracket" style="color : red;"></i><span>Logout</span></a>

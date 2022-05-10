@@ -297,6 +297,8 @@ main {
     object-fit: cover;
     width: 50px;
     height: 50px;
+    border: 2px solid white;
+    background-color: #B7CADB;
 }
 
 .card-name {
@@ -551,12 +553,30 @@ hr.red {
     border-radius: 14px;
     display: flex;
     flex-direction: column;
-    justify-content: flex-start;
+    justify-content: space-between;
     background-color: white;
     flex-grow: 3;
     min-width: 70%;
-    padding: 10px;
     min-height: 500px;
+}
+
+.orgz {
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+}
+
+.orgts {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    max-height: 1000px;
+    overflow-y: scroll;
+    padding: 10px;
+}
+
+.list-container svg {
+    border-top: 1px solid #22a6df;
 }
 
 .filter-section {
@@ -566,14 +586,18 @@ hr.red {
 }
 
 .org-card{
-    margin-bottom: 20px;
     display: flex;
     justify-content: space-between;
     align-items: center;
     border-radius: 14px;
     background-color: #1E96C8;
     width: 100%;
+    margin-bottom: 10px;
     box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
+}
+
+.org-card:hover {
+    background-color: #2aaae0;
 }
 
 .org-card-profile {
@@ -912,18 +936,22 @@ textarea:focus {
 /* Profile page */
 
 .profile-wrapper {
+    
     margin-top: 10px;
     display: flex;
     flex-direction: column;
     width: 100%;
+    background-color: rgb(255, 255, 255);
+
 }
 
 .main-profile {
     display: flex;
     flex-direction: row;
+    flex-wrap: wrap;
     width: 100%;
     justify-content: space-evenly;
-    background-color: white;
+ 
     padding: 20px;
     align-items: center;
 }
@@ -934,8 +962,9 @@ textarea:focus {
 }
 
 .avatar-container img {
-    width: 15vw;
-    height: 15vw;
+    width: 280px;
+    height: 280px;
+    border: 3px solid grey;
     border-radius: 50%;
     object-fit: cover;
 }
@@ -972,40 +1001,78 @@ textarea:focus {
 }
 
 .user-profile li{
-    font-size: 1.3vw;
+    font-size: 1.2em;
     color: white;
     margin: 5px;
     list-style-type: none;
     padding: 5px;
 }
 
+.below-profile{
+    padding: 10px;
+    gap: 10px;
+    flex-direction: column;
+    display: flex;
+
+}
+
 .myactivity-wrapper{
-    margin: 14px;
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    width: 100%;
-    justify-content: space-evenly;
+    width: auto;
+    justify-content: space-around;
+    gap: 10px;
 }
 
 .my-org {
     background-color: white;
-    width: 40%;
+    flex-grow: 3;
     padding: 10px;
     border-radius: 14px;
+    box-shadow: rgba(136, 165, 191, 0.48) 6px 2px 16px 0px, rgba(255, 255, 255, 0.8) -6px -2px 16px 0px;
+}
+
+.fol {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    justify-content: space-between;
+}
+
+.follow {
+    width: 100%;
+    max-height: 100px;
+}
+
+.follow-container {
+    padding: 10px;
+    min-height: 300px;
+    max-height: 300px;
+    overflow-y: scroll;
+}
+
+.follow .org-card {
+    height: 70px;
+
 }
 
 .my-org .org-image{
-    width: auto;
-    
+    width: auto;  
 }
 
 .org-image img {
-    padding: 5px;
     border-radius: 50%;
     width: 7vw;
     height: 7vw;
     object-fit: cover;
+    border: 2px solid white;
+    background-color: #B7CADB;
+}
+
+.follow .org-image img {
+    width: 50px;
+    height: 50px;
 }
 
 
@@ -1017,6 +1084,8 @@ textarea:focus {
     background-color: white;
     padding: 10px;
     border-radius: 14px;
+    width: auto;
+    box-shadow: rgba(136, 165, 191, 0.48) 6px 2px 16px 0px, rgba(255, 255, 255, 0.8) -6px -2px 16px 0px;
 }
 /* endof profile page */
 
@@ -1261,10 +1330,20 @@ textarea:focus {
 }
 
 .rekomendasi-list {
+    display: flex;
+    flex-direction: column;
     width: 80%;
+    gap: 10px;
     align-self: center;
     align-items: center;
+    background-repeat: no-repeat;
+    background-size:cover;
 }
+
+.rekomendasi-list a {
+    width: 100%;
+}
+
 
 /* endof rekomendasi */
 
@@ -1274,7 +1353,6 @@ textarea:focus {
     flex-grow: 2;
     width: 60%;
     padding: 10px;
-    background-color: #677078;
     max-height: 700px;
     overflow-y: scroll;
     min-height: 500px;
@@ -1293,10 +1371,12 @@ textarea:focus {
 .bleh img {
     height: 80px;
     width: 80px;
+    border: 2px solid white;
+    background-color: #B7CADB;
 }
 
 .all-event-container {
-    padding: 10px;
+
     width: 100%;    
     gap: 10px;
     display: flex;
@@ -1305,6 +1385,12 @@ textarea:focus {
 }
 
 .end {
+    display: flex;
+    width: 100%;
     font-size: 30px;
-    color: white;
+    color: #00b3ff;
+    align-items: center;
+    justify-content: center;
+    background-color: #6770784a;
 }
+

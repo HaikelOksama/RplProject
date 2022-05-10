@@ -8,39 +8,42 @@ List
 <div class="list-wrapper">
 
     <div class="list-container">
-        <h2>Organisasi : [{{organisasi.count}}]</h2>
-        <a href="{% url 'organisasi' %}"><Button>Tampilkan semua</Button></a>
-        <br>
-        {% for org in organisasi %}
-
-        <a href="{% url 'detail' org.name %}">
-        <div class="org-card">
-            <div class="org-card-profile">
-                <h3>{{org.name}}</h3>
-                <hr>
-                {% if org.fakultas %}
-                <small>Fakultas {{org.fakultas}}</small>
-                {% else %}
-                <small>Umum</small>
-                {% endif %}
-                <br>
-                <small>{{org.topic}}</small>
+        <div class="orgz">
+            <h2>Organisasi : [{{organisasi.count}}]</h2>
+            <a href="{% url 'organisasi' %}"><Button>Tampilkan semua</Button></a>
+            <br>
+            <br>
+            <div class="orgts">
+                {% for org in organisasi %}
+                <a href="{% url 'detail' org.name %}">
+                    <div class="org-card">
+                        <div class="org-card-profile">
+                            <h3>{{org.name}}</h3>
+                            <hr>
+                            {% if org.fakultas %}
+                            <small>Fakultas {{org.fakultas}}</small>
+                            {% else %}
+                            <small>Umum</small>
+                            {% endif %}
+                            <br>
+                            <small>{{org.topic}}</small>
+                        </div>
+                        <div class="org-image">
+                            {% if org.profile_picture %}
+                            <img src="{{org.profile_picture.url}}" alt="" srcset="">
+                            {% else %}
+                            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQp9XXU7SVb7ZkED-wSC9xKUgvs7qD8ypvLxpjllkTcd_pv_ne1jpQrbvCme2MEXMMIMBM&usqp=CAU" alt="">
+                            {% endif %}
+                        </div>
+                    </div>    
+                </a>
+                {% endfor %}
             </div>
-            <div class="org-image">
-                {% if org.profile_picture %}
-                <img src="{{org.profile_picture.url}}" alt="" srcset="">
-                {% else %}
-                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQp9XXU7SVb7ZkED-wSC9xKUgvs7qD8ypvLxpjllkTcd_pv_ne1jpQrbvCme2MEXMMIMBM&usqp=CAU" alt="">
-                {% endif %}
-            </div>
-        </div>    
-        </a>
-        {% endfor %}
-        {% if organisasi.count != 0 %}
+        </div>
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="#0099ff" fill-opacity="1" d="M0,160L48,170.7C96,181,192,203,288,218.7C384,235,480,245,576,229.3C672,213,768,171,864,149.3C960,128,1056,128,1152,133.3C1248,139,1344,149,1392,154.7L1440,160L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path></svg>
-        {% endif %}
+       
     </div> 
-
+    
     <div class="filter-section">
         <div class="topic-list">
             <h2>Filter berdasar Topik</h2>

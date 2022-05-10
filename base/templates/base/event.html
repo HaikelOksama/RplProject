@@ -1,21 +1,21 @@
 {% extends 'base.html' %}
 {% load static %}
-{% block title %}Rekomendasi{% endblock title %}
+{% block title %}Event{% endblock title %}
 
 {% block content %}
 
   <div class="rekomendasi-container w-evt">
       <div class="rekomendasi-header">
-          <img src="{% static 'images/rec-head.jpg' %}" alt="">
+          <img src="https://images.unsplash.com/photo-1465060810938-30bbe7c40e76?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1245&q=80" alt="">
           <div class="rekomendasi-header-info">
               <h2>Event</h2>
               <p>Berikut adalah event akan datang</p>
           </div>
       </div>
 
-    <div class="all-event-container">
+    <div class="all-event-container" >
       {% now "Y-m-d" as todays_date %}    
-      <div class="rekomendasi-list w-60">
+      <div class="rekomendasi-list w-60" style="background : url({% static 'images/card-bg.png' %});">
         {% for event in events %}
         {% if todays_date < event.jadwal|date:"Y-m-d" %}
           <a href="{% url 'event' event.id %}" class="bozo">
@@ -48,7 +48,7 @@
         {% endif %}
         {% endfor %}
         <br>
-        <center><h1 class="end">Semua event telah ditampilkan</h1></center>
+        <center class="end"><h1 >Semua event telah ditampilkan</h1></center>
       </div>
       
       
@@ -94,6 +94,8 @@
             {% empty %}
             <h2 style = "color: white;">Belum ada event</h2>
             {% endfor %}
+          {% else %}
+            <h2 style = "color: white;">Anda belum ada mengikuti organisasi, lihat list organisasi <a href="{% url 'organisasi' %}" style="color: red;">Disini</a></h2>
           {% endif %}
           
           {% else %}
